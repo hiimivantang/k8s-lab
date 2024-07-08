@@ -1,0 +1,35 @@
+apiVersion: v1
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+    events {
+      worker_connections  1024;
+    }
+    http {
+        server {
+            listen       80;
+            listen  [::]:80;
+            server_name  localhost;
+            location / {
+                root   /usr/share/nginx/html;
+                index  index.html index.htm;
+            }
+            auth_basic "Secure Site";
+            auth_basic_user_file conf/.htpasswd;
+        }
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"nginx.conf":"user  nginx;\nworker_processes  1;\n\nerror_log  /var/log/nginx/error.log warn;\npid        /var/run/nginx.pid;\n\nevents {\n  worker_connections  1024;\n}\nhttp {\n    server {\n        listen       80;\n        listen  [::]:80;\n        server_name  localhost;\n        location / {\n            root   /usr/share/nginx/html;\n            index  index.html index.htm;\n        }\n        auth_basic \"Secure Site\";\n        auth_basic_user_file conf/.htpasswd;\n    }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"nginx-config","namespace":"default"}}
+  creationTimestamp: "2024-07-08T14:06:26Z"
+  name: nginx-config
+  namespace: default
+  resourceVersion: "526"
+  uid: a98a7e93-67ed-44cf-9a7e-cb2a65dd0ced
