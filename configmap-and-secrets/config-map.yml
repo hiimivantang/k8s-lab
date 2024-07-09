@@ -1,4 +1,5 @@
 apiVersion: v1
+kind: ConfigMap
 data:
   nginx.conf: |
     user  nginx;
@@ -23,7 +24,6 @@ data:
             auth_basic_user_file conf/.htpasswd;
         }
     }
-kind: ConfigMap
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
