@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: beebox-shipping-data
+spec:
+  containers:
+  - image: linuxacademycontent/random-crashing-web-server:1
+    imagePullPolicy: IfNotPresent
+    name: shipping-data
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 1
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 30
